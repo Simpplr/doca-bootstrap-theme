@@ -13,7 +13,7 @@ class Schema extends Component {
   };
 
   state = {
-    showDefinition: false,
+    showDefinition: true,
   };
 
   handleToggle = () => {
@@ -32,7 +32,7 @@ class Schema extends Component {
           <h2>{schema.get('title')}</h2>
         </div>
         <div className="panel-body">
-          <h3>{schema.get('description')}</h3>
+          <p className="lead">{schema.get('description')}</p>
           {schema.get('extended_description') &&
             <MarkdownPreview value={schema.get('extended_description')} />}
 
@@ -40,8 +40,7 @@ class Schema extends Component {
             {IS_JAVASCRIPT &&
               <p>
                 <a onClick={this.handleToggle} className="btn btn-info">
-                  <span>{showDefinition ? 'Hide' : 'Show'}</span>{' '}
-                  properties and constraints defined on the object
+                  <span>{showDefinition ? 'Hide' : 'Show'}</span> {schema.get('title')} model
                 </a>
               </p>
             }

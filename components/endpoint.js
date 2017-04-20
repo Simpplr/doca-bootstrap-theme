@@ -4,6 +4,14 @@ const MarkdownPreview = require('react-marked-markdown').MarkdownPreview;
 const ImmutablePropTypes = require('react-immutable-proptypes');
 const Component = require('react-pure-render/component');
 
+function getEndpointCallExample(link) {
+  const argumentList = link.get('isParamsObjectArgument')
+    ? 'paramsObject'
+    : link.getIn(['parameters', 'all_props']).keySeq().join(', ');
+
+  return `Simpplr.Salesforce.${link.get('title')}(${argumentList})`;
+}
+
 class Endpoint extends Component {
 
   static propTypes = {
@@ -12,17 +20,23 @@ class Endpoint extends Component {
 
   render() {
     const { link } = this.props;
-
     return (
       <section key={link.get('html_id')} id={link.get('html_id')} className="list-group-item">
-        <h3>
-          <div className="label label-success">{link.get('method')}</div>{' '}
-          <div className="endpoint-title">{link.get('title')}</div>
-        </h3>
+        <h2>
+          {link.get('title')}
+        </h2>
         {link.get('description') && <MarkdownPreview value={link.get('description')} />}
         <pre>
-          {link.get('method')} {link.get('uri')}
+          {getEndpointCallExample(link)}
         </pre>
+
+        {link.get('info', []).map(info => (
+          <div className="alert alert-info" role="alert"><strong>Info:</strong> {info}</div>
+        ))}
+
+        {link.get('warning', []).map(warning => (
+          <div className="alert alert-warning" role="alert"><strong>Warning:</strong> {warning}</div>
+        ))}
 
         {link.getIn(['parameters', 'required_props', 0]) &&
           <div>
@@ -49,11 +63,6 @@ class Endpoint extends Component {
             />
           </div>
         }
-
-        <h4>cURL</h4>
-        <div>
-          <pre>{link.get('curl')}</pre>
-        </div>
 
         <h4>Response</h4>
         <div>

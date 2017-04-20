@@ -21,7 +21,9 @@ class App extends Component {
           <div className="container-fluid">
             <div className="row">
               <div className="col-lg-12">
-                <h1>{config.title}</h1>
+                <div className="page-header">
+                  <h1>{config.title}</h1>
+                </div>
                 {schemas
                   .filter(schema => !schema.get('hidden'))
                   .valueSeq()
