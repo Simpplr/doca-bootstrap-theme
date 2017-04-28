@@ -25,6 +25,8 @@ class Schema extends Component {
   render() {
     const { schema } = this.props;
     const { showDefinition } = this.state;
+    const hasDefinition = schema.getIn(['object_definition', 'all_props']).size > 0;
+
     return (
       <article className="panel panel-primary">
         <div className="panel-heading">
@@ -36,17 +38,19 @@ class Schema extends Component {
           {schema.get('extended_description') &&
             <MarkdownPreview value={schema.get('extended_description')} />}
 
-          <header id={`${schema.get('html_id')}-properties`}>
-            {IS_JAVASCRIPT &&
-              <p>
-                <a onClick={this.handleToggle} className="btn btn-info">
-                  <span>{showDefinition ? 'Hide' : 'Show'}</span> {schema.get('title')} model
-                </a>
-              </p>
-            }
-          </header>
+          {hasDefinition && (
+            <header id={`${schema.get('html_id')}-properties`}>
+              {IS_JAVASCRIPT &&
+                <p>
+                  <a onClick={this.handleToggle} className="btn btn-info">
+                    <span>{showDefinition ? 'Hide' : 'Show'}</span> {schema.get('title')} model
+                  </a>
+                </p>
+              }
+            </header>
+          )}
 
-          {(showDefinition || !IS_JAVASCRIPT) &&
+          {hasDefinition && (showDefinition || !IS_JAVASCRIPT) &&
             <div>
               {schema.getIn(['object_definition', 'objects']).count() ?
                 <div>
