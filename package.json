@@ -1,9 +1,9 @@
 {
   "name": "doca-simpplr-theme",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simpplr's Doca theme using Twitter Bootstrap",
   "main": "index.js",
-  "author": "Vojtech Miksu <vojtech@miksu.cz>",
+  "author": ["Vojtech Miksu <vojtech@miksu.cz>", "Joe Holdcroft <joe@simpplr.com>"],
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
