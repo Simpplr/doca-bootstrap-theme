@@ -29,6 +29,7 @@ class Endpoint extends Component {
         <pre>
           {getEndpointCallExample(link)}
         </pre>
+        {link.get('url') && <pre>{link.get('url')}</pre>}
 
         {link.get('info', []).map(info => (
           <div className="alert alert-info" role="alert"><strong>Info:</strong> {info}</div>
